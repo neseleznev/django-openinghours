@@ -17,22 +17,23 @@ WEEKDAYS = [
 ]
 
 
-@python_2_unicode_compatible
-class Company(models.Model):
-    """
-    Default model for company premises, which can be
-    replaced using OPENINGHOURS_PREMISES_MODEL.
-    """
-    class Meta:
-        verbose_name = _('Company')
-        verbose_name_plural = _('Companies')
+if PREMISES_MODEL == 'openinghours.Company':
+    @python_2_unicode_compatible
+    class Company(models.Model):
+        """
+        Default model for company premises, which can be
+        replaced using OPENINGHOURS_PREMISES_MODEL.
+        """
+        class Meta:
+            verbose_name = _('Company')
+            verbose_name_plural = _('Companies')
 
-    name = models.CharField(_('Name'), max_length=100)
-    slug = models.SlugField(_('Slug'), unique=True)
-    logo = models.FileField(_('Logo'), upload_to='logo', null=True, blank=True)
+        name = models.CharField(_('Name'), max_length=100)
+        slug = models.SlugField(_('Slug'), unique=True)
+        logo = models.FileField(_('Logo'), upload_to='logo', null=True, blank=True)
 
-    def __str__(self):
-        return self.name
+        def __str__(self):
+            return self.name
 
 
 @python_2_unicode_compatible
@@ -80,7 +81,7 @@ class ClosingRules(models.Model):
     def __str__(self):
         return _("%(premises)s is closed from %(start)s to %(end)s\
         due to %(reason)s") % {
-            'premises': self.company.name,
+            'premises': self.company,
             'start': str(self.start),
             'end': str(self.end),
             'reason': self.reason

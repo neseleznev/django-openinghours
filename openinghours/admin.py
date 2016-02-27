@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from openinghours.models import OpeningHours, ClosingRules, Company
+from openinghours.models import OpeningHours, ClosingRules
 from openinghours.app_settings import PREMISES_MODEL
 
 
@@ -21,4 +21,5 @@ class CompanyAdmin(admin.ModelAdmin):
 # OPENINGHOURS_PREMISES_MODEL users need to register
 # their own admin from their app
 if PREMISES_MODEL == 'openinghours.Company':
+    from openinghours.models import Company
     admin.site.register(Company, CompanyAdmin)

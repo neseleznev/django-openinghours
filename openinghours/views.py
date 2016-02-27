@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from openinghours.models import Company
+from openinghours.utils import Company
 
 
 class CurrentlyOpenView(TemplateView):
