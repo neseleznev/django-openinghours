@@ -15,7 +15,7 @@ def iso_day_to_weekday(d):
     Returns the weekday's name given a ISO weekday number; "today" if today is the same weekday
     """
     if int(d) == utils.get_now().isoweekday():
-        return _("today")
+        return _("Today")
     for w in WEEKDAYS:
         if w[0] == int(d):
             return w[1]
@@ -27,7 +27,7 @@ def to_weekday(date_obj_tpl):
     now = utils.get_now()
     day = date_obj.isoweekday()
     if day == now.isoweekday() and (date_obj - now).days == 0:
-        return _("today")
+        return _("Today")
     for w in WEEKDAYS:
         if w[0] == int(day):
             return w[1]
