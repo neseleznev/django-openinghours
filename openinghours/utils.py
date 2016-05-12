@@ -6,7 +6,7 @@ except ImportError:
     get_current_request = None
 from openinghours.models import OpeningHours, ClosingRules, PREMISES_MODEL
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.timezone import now
+from django.utils.timezone import now, make_aware, get_default_timezone
 
 from compat import get_model
 
@@ -116,7 +116,10 @@ def next_time_open(location):
                 for oh in ohs:
                     future_now = now + datetime.timedelta(days=i)
                     # same day issue
-                    tmp_now = datetime.datetime(future_now.year, future_now.month, future_now.day, oh.from_hour.hour, oh.from_hour.minute, oh.from_hour.second)
+                    tmp_now = make_aware(
+                        datetime.datetime(future_now.year, future_now.month, future_now.day, oh.from_hour.hour, oh.from_hour.minute, oh.from_hour.second),
+                        timezone.get_default_timezone()
+                    )
                     if tmp_now < now:
                         tmp_now = now  # be sure to set the bound correctly...
                     if is_open(location, now=tmp_now):
