@@ -118,7 +118,7 @@ def next_time_open(location):
                     # same day issue
                     tmp_now = make_aware(
                         datetime.datetime(future_now.year, future_now.month, future_now.day, oh.from_hour.hour, oh.from_hour.minute, oh.from_hour.second),
-                        timezone.get_default_timezone()
+                        get_default_timezone()
                     )
                     if tmp_now < now:
                         tmp_now = now  # be sure to set the bound correctly...
